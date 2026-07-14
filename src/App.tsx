@@ -15,7 +15,7 @@ import { GeneratedLink } from './components/GeneratedLink';
 
 export default function App() {
   const [content, setContent] = useState('');
-  const [expiration, setExpiration] = useState('24h');
+  const [expiration, setExpiration] = useState('10m');
   const [shortCode, setShortCode] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 

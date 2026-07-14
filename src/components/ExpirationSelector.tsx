@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { cn } from '../utils/cn';
 
 const EXPIRATIONS = [
-  { label: '1m', value: '1m' },
+  { label: '5m', value: '5m' },
   { label: '10m', value: '10m' },
   { label: '1h', value: '1h' },
   { label: '24h', value: '24h' },

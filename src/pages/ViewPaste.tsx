@@ -5,10 +5,11 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { Loader2, Home } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Loader2, Home, Copy, Check } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
@@ -24,6 +25,7 @@ export default function ViewPaste() {
   const [paste, setPaste] = useState<PasteData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { isCopied, copyToClipboard } = useCopyToClipboard();
 
   useEffect(() => {
     const fetchPaste = async () => {
@@ -112,13 +114,45 @@ export default function ViewPaste() {
         </motion.div>
 
         <Card className="border-2 border-white/60">
-          <div className="mb-4 pb-4 border-b border-slate-200/50">
+          <div className="mb-4 pb-4 border-b border-slate-200/50 flex items-center justify-between">
             <div className="flex items-center justify-between text-sm text-slate-600">
               <span>Created {new Date(paste.createdAt).toLocaleString()}</span>
-              <span className="font-semibold text-pink-600">
+              <span className="ml-4 font-semibold text-pink-600">
                 Expires in {expiresInHours}h {expiresInMinutes}m
               </span>
             </div>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => copyToClipboard(paste.content)}
+              className="ml-4"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isCopied ? (
+                  <motion.div
+                    key="check"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    className="flex items-center gap-2 text-emerald-600"
+                  >
+                    <Check size={18} />
+                    <span>Copied!</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="copy"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Copy size={18} />
+                    <span>Copy</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Button>
           </div>
           
           <Editor

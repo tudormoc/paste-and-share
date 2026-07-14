@@ -36,12 +36,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Calculate expiration in seconds
     const expirationMap: Record<string, number> = {
+      '5m': 300,
+      '10m': 600,
       '1h': 3600,
       '24h': 86400,
       '7d': 604800,
-      '30d': 2592000,
+      'never': 31536000, // 1 year (max KV TTL)
     };
-    const ttl = expirationMap[expiration] || 86400;
+    const ttl = expirationMap[expiration] || 600;
 
     const pasteData: PasteData = {
       content,
