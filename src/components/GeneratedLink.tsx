@@ -9,9 +9,8 @@ interface GeneratedLinkProps {
 
 export function GeneratedLink({ shortCode }: GeneratedLinkProps) {
   const { isCopied, copyToClipboard } = useCopyToClipboard();
-  // We use a dummy domain for display to make it look cool, or window.location
-  const displayUrl = `share.it/p/${shortCode}`;
   const fullUrl = `${window.location.origin}/p/${shortCode}`;
+  const displayUrl = fullUrl.replace(/^https?:\/\//, ''); // Remove protocol for cleaner display
 
   return (
     <motion.div
@@ -58,9 +57,17 @@ export function GeneratedLink({ shortCode }: GeneratedLinkProps) {
             </AnimatePresence>
           </Button>
           
-          <Button variant="primary" size="icon" className="shrink-0" title="Open Link">
-             <ExternalLink size={18} />
-          </Button>
+          <a href={fullUrl} target="_blank" rel="noopener noreferrer">
+            <Button 
+              variant="primary" 
+              size="icon" 
+              className="shrink-0" 
+              title="Open Link"
+              type="button"
+            >
+              <ExternalLink size={18} />
+            </Button>
+          </a>
         </div>
       </div>
     </motion.div>
