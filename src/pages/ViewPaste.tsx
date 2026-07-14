@@ -12,7 +12,7 @@ import { Button } from '../components/ui/Button';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/themes/prism.css';
 
 interface PasteData {
   content: string;
@@ -161,10 +161,11 @@ export default function ViewPaste() {
             highlight={(code) => Prism.highlight(code, Prism.languages.javascript, 'javascript')}
             padding={16}
             readOnly
-            className="font-mono text-sm bg-slate-900 rounded-lg"
+            className="font-mono text-sm bg-white/50 rounded-lg"
             style={{
               fontFamily: '"Fira Code", "Consolas", monospace',
               minHeight: '300px',
+              color: '#1e293b',
             }}
           />
         </Card>
