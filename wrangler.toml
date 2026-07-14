@@ -1,0 +1,7 @@
+name = "paste-and-share"
+compatibility_date = "2024-01-01"
+
+# KV namespace binding
+[[kv_namespaces]]
+binding = "PASTES"
+id = "afa5ef69f4d543cf8fe4425893150e4e"

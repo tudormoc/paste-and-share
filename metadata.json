@@ -1,0 +1,6 @@
+{
+  "name": "Paste & Share",
+  "description": "A beautiful, modern pastebin alternative to quickly share code snippets and text with an expiration time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
